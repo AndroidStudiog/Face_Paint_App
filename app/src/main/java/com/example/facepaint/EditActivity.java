@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
@@ -18,11 +20,21 @@ public class EditActivity extends AppCompatActivity {
     int type1;
     int image;
 
+    Button done;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent submit=new Intent(EditActivity.this,SubmitActivity.class);
+                startActivity(submit);
+            }
+        });
 
         type1= getIntent().getIntExtra("type",0);
         if (type1==1){
@@ -35,6 +47,7 @@ public class EditActivity extends AppCompatActivity {
         dsPhotoEditorIntent.setData(imgUri);
         dsPhotoEditorIntent.putExtra(DsPhotoEditorConstants.DS_PHOTO_EDITOR_OUTPUT_DIRECTORY, "Face_Paint");
         startActivityForResult(dsPhotoEditorIntent, 200);
+
     }
 
     @Override
