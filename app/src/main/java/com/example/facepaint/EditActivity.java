@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
@@ -20,6 +21,10 @@ public class EditActivity extends AppCompatActivity {
     int type1;
     int image;
 
+    public static ImageView person_img;
+
+    public static ImageView flag_img;
+
     Button done;
 
     @Override
@@ -27,6 +32,10 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        person_img = (ImageView) findViewById(R.id.editImage);
+
+        flag_img = (ImageView) findViewById(R.id.editPaintImage);
 
         binding.done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +49,7 @@ public class EditActivity extends AppCompatActivity {
         if (type1==1){
             Intent intent=getIntent();
             image=intent.getIntExtra("image",0);
-            binding.editPaintImage.setImageResource(image);
+            flag_img.setImageResource(image);
         }
 
         Intent dsPhotoEditorIntent = new Intent(this, DsPhotoEditorActivity.class);
@@ -63,7 +72,7 @@ public class EditActivity extends AppCompatActivity {
 
                     // handle the result uri as you want, such as display it in an imageView;
 
-                    binding.editImage.setImageURI(outputUri);
+                    person_img.setImageURI(outputUri);
 
                     break;
 
