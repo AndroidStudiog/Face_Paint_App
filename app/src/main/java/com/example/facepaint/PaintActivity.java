@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.module.ManifestParser;
@@ -50,13 +51,21 @@ public class PaintActivity extends AppCompatActivity {
     int image;
     String internet="https://www.google.com";
 
+    public static ImageView camera_image;
+
+    public static ImageView paint_image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityPaintBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.imageView.setImageURI(getIntent().getData());
+        camera_image=(ImageView) findViewById(R.id.imageView);
+
+        paint_image=(ImageView) findViewById(R.id.paintImageView);
+
+        camera_image.setImageURI(getIntent().getData());
 
         binding.edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +175,7 @@ public class PaintActivity extends AppCompatActivity {
         }
         if (requestCode == 20){
             Uri uri=data.getData();
-            binding.paintImageView.setImageURI(uri);
+            paint_image.setImageURI(uri);
         }
     }
 
